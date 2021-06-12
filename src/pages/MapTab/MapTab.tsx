@@ -1,19 +1,29 @@
-import React, { ReactElement } from 'react';
-import MapView from 'react-native-maps';
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import React, { ReactElement, useEffect } from 'react';
+import MapView, { Marker } from 'react-native-maps';
 
+import { useLocation } from '../../hooks';
+import { MainPageTabNavParamList } from '../MainPage/MainPage.model';
 import s from './MapTab.style';
 
-export function MapTab(): ReactElement {
+export function MapTab({
+    navigation,
+}: BottomTabScreenProps<MainPageTabNavParamList>): ReactElement {
+    const { getLocation, location } = useLocation(navigation);
+
+    useEffect(() => {
+        getLocation();
+    }, [getLocation]);
+
     return (
         <MapView
             provider="google"
             style={s.map}
-            region={{
-                latitude: 37.78825,
-                longitude: -122.4324,
-                latitudeDelta: 0.015,
-                longitudeDelta: 0.0121,
-            }}
-        />
+            initialRegion={
+                location ? { ...location, latitudeDelta: 0.015, longitudeDelta: 0.0121 } : undefined
+            }
+        >
+            {location && <Marker coordinate={location} />}
+        </MapView>
     );
 }

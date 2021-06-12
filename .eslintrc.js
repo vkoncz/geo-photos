@@ -11,6 +11,8 @@ const eslintConfig = {
     extends: ['universe/native', 'universe/shared/typescript-analysis'],
     rules: {
         'prettier/prettier': ['warn', prettierConfig],
+        'react-hooks/rules-of-hooks': 'error',
+        'react-hooks/exhaustive-deps': 'warn',
     },
     overrides: [
         {
