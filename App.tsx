@@ -1,19 +1,7 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { ReactElement } from 'react';
 
-export default function App() {
-    return (
-        <View style={styles.container}>
-            <Text>Open up App.tsx to start working on your app!</Text>
-        </View>
-    );
+import { MainPage } from './src/pages';
+
+export default function App(): ReactElement {
+    return <MainPage />;
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});
