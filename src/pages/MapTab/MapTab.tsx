@@ -1,8 +1,10 @@
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import { StackScreenProps } from '@react-navigation/stack';
 import React, { ReactElement, useEffect } from 'react';
 import MapView, { Marker } from 'react-native-maps';
 import { useDispatch } from 'react-redux';
 
+import { AppStackNavParamList } from '../../../App';
 import { useLocation } from '../../hooks';
 import { locationActions } from '../../state';
 import { MainPageTabNavParamList } from '../MainPage/MainPage.model';
@@ -10,7 +12,8 @@ import s from './MapTab.style';
 
 export function MapTab({
     navigation,
-}: BottomTabScreenProps<MainPageTabNavParamList>): ReactElement {
+}: BottomTabScreenProps<MainPageTabNavParamList> &
+    StackScreenProps<AppStackNavParamList>): ReactElement {
     const { getLocation, location } = useLocation(navigation);
     const dispatch = useDispatch();
 
@@ -27,6 +30,7 @@ export function MapTab({
             }
             onPress={event => {
                 dispatch(locationActions.setLocation(event.nativeEvent.coordinate));
+                navigation.navigate('Camera');
             }}
         >
             {location && <Marker coordinate={location} />}

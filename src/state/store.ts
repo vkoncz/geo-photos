@@ -2,13 +2,13 @@ import { configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 
 import { locationSaga } from './location/location.sagas';
-import cv from './location/location.slice';
+import location from './location/location.slice';
 
 const sagaMiddleware = createSagaMiddleware();
 
 export const store = configureStore({
     reducer: {
-        cv,
+        location,
     },
     middleware: [sagaMiddleware],
 });
