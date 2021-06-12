@@ -22,6 +22,9 @@ export function MapTab({
             initialRegion={
                 location ? { ...location, latitudeDelta: 0.015, longitudeDelta: 0.0121 } : undefined
             }
+            onPress={event => {
+                alert(JSON.stringify(event.nativeEvent.coordinate));
+            }}
         >
             {location && <Marker coordinate={location} />}
         </MapView>
