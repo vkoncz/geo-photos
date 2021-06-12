@@ -17,6 +17,14 @@
     android:allowBackup="false"
     android:theme="@style/AppTheme"
   >
+    <!-- Google maps TODO: read api key from env varibale -->
+    <meta-data
+      android:name="com.google.android.geo.API_KEY"
+      android:value="AIzaSyD2xYwMrTRXd-fiSQEZx_5cXz_ngfClpMM"/>
+
+    <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+    <!--/ Google maps -->
+
     <meta-data android:name="expo.modules.updates.EXPO_UPDATE_URL" android:value="YOUR-APP-URL-HERE"/>
     <meta-data android:name="expo.modules.updates.EXPO_SDK_VERSION" android:value="YOUR-APP-SDK-VERSION-HERE"/>
     <activity
@@ -33,5 +41,6 @@
       </intent-filter>
     </activity>
     <activity android:name="com.facebook.react.devsupport.DevSettingsActivity"/>
+
   </application>
 </manifest>
