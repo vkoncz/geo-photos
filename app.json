@@ -1,0 +1,12 @@
+{
+  "name": "geo-photos",
+  "displayName": "geo-photos",
+  "expo": {
+    "name": "geo-photos",
+    "slug": "geo-photos",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
