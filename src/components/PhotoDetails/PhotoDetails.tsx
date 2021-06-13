@@ -2,13 +2,15 @@ import { MaterialIcons } from '@expo/vector-icons';
 import React, { ReactElement } from 'react';
 import { Text, Image, StyleSheet, View, Pressable } from 'react-native';
 
-import { Photo } from '../../state';
+import { Photo, photoActions, useAppDispatch } from '../../state';
 
 interface Props {
     photo: Photo;
 }
 
 export function PhotoDetails({ photo }: Props): ReactElement {
+    const dispatch = useAppDispatch();
+
     return (
         <View style={s.container}>
             <Image source={{ uri: photo.imageUri }} resizeMode="contain" style={s.image} />
@@ -17,7 +19,7 @@ export function PhotoDetails({ photo }: Props): ReactElement {
                 <Text>Latitude: {photo.coordinates.latitude}</Text>
                 <Text>Longitude: {photo.coordinates.longitude}</Text>
             </View>
-            <Pressable>
+            <Pressable onPress={() => dispatch(photoActions.uploadPhoto(photo))}>
                 <MaterialIcons name="sync" size={24} color="black" style={s.icon} />
             </Pressable>
         </View>
