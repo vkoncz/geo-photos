@@ -12,7 +12,7 @@ export function savePhotoInfo(
 ) {
     state.photos.push({
         coordinates: state.coordinates,
-        currentDate: payload.currentDate,
+        date: payload.date,
         imageUri: payload.imageUri,
     });
 }

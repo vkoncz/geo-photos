@@ -1,6 +1,6 @@
 export interface Photo {
     imageUri: string;
-    currentDate: string;
+    date: Date;
     coordinates: Coordinates;
 }
 

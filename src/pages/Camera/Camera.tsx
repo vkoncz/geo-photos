@@ -24,9 +24,9 @@ export function Camera({ navigation }: StackScreenProps<AppStackNavParamList>): 
         }
         setCaptureEnabled(false);
 
-        const { uri: imageUri } = await camera.current.takePictureAsync({ imageType: 'jpeg' });
-        await savePhoto(imageUri);
-        dispatch(photoActions.savePhotoInfo({ imageUri, currentDate: new Date().toISOString() }));
+        const { uri } = await camera.current.takePictureAsync({ imageType: 'jpeg' });
+        const imageUri = await savePhoto(uri);
+        dispatch(photoActions.savePhotoInfo({ imageUri, date: new Date() }));
 
         navigation.goBack();
         setCaptureEnabled(true);
