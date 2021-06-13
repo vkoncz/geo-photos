@@ -1,30 +1,47 @@
 import { useIsFocused } from '@react-navigation/native';
 import { StackScreenProps } from '@react-navigation/stack';
 import * as FileSystem from 'expo-file-system';
-import React, { ReactElement, useCallback, useRef } from 'react';
+import React, { ReactElement, useCallback, useRef, useState } from 'react';
 import { Button, StyleSheet } from 'react-native';
-import { RNCamera } from 'react-native-camera';
+import { CameraStatus, RNCamera } from 'react-native-camera';
 
 import { AppStackNavParamList } from '../../../App';
+import { photoActions, useAppDispatch } from '../../state';
 
 export function Camera({ navigation }: StackScreenProps<AppStackNavParamList>): ReactElement {
     const isFocused = useIsFocused();
     const camera = useRef<RNCamera | null>(null);
+    const [captureEnabled, setCaptureEnabled] = useState(true);
+    const dispatch = useAppDispatch();
+    const [status, setStatus] = useState<keyof CameraStatus>();
 
     const takePhoto = useCallback(async () => {
-        if (!camera.current) return;
+        if (!camera.current || status !== 'READY') {
+            alert('Camera unavailable');
+            navigation.goBack();
 
-        const photo = await camera.current.takePictureAsync({ imageType: 'jpeg' });
-        await savePhoto(photo.uri);
+            return;
+        }
+        setCaptureEnabled(false);
+
+        const { uri: imageUri } = await camera.current.takePictureAsync({ imageType: 'jpeg' });
+        await savePhoto(imageUri);
+        dispatch(photoActions.savePhotoInfo({ imageUri, currentDate: new Date().toISOString() }));
 
         navigation.goBack();
-    }, [navigation]);
+        setCaptureEnabled(true);
+    }, [dispatch, navigation, status]);
 
     if (isFocused) {
         return (
             <>
-                <RNCamera ref={camera} style={s.preview} captureAudio={false} />
-                <Button title="Capture" onPress={takePhoto} />
+                <RNCamera
+                    ref={camera}
+                    style={s.preview}
+                    captureAudio={false}
+                    onStatusChange={event => setStatus(event.cameraStatus)}
+                />
+                <Button title="Capture" onPress={takePhoto} disabled={!captureEnabled} />
             </>
         );
     } else {

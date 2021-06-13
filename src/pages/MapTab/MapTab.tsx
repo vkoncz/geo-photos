@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 
 import { AppStackNavParamList } from '../../../App';
 import { useLocation } from '../../hooks';
-import { locationActions } from '../../state';
+import { photoActions } from '../../state';
 import { MainPageTabNavParamList } from '../MainPage/MainPage.model';
 import s from './MapTab.style';
 
@@ -29,7 +29,7 @@ export function MapTab({
                 location ? { ...location, latitudeDelta: 0.015, longitudeDelta: 0.0121 } : undefined
             }
             onPress={event => {
-                dispatch(locationActions.setLocation(event.nativeEvent.coordinate));
+                dispatch(photoActions.setCurrentCoordinates(event.nativeEvent.coordinate));
                 navigation.navigate('Camera');
             }}
         >

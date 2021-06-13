@@ -1,3 +1,3 @@
 export { store } from './store';
 export * from './hooks';
-export { locationActions } from './location/location.slice';
+export { photoActions } from './photo/photo.slice';
