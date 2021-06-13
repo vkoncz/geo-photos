@@ -12,7 +12,21 @@ export function savePhotoInfo(
 ) {
     state.photos.push({
         coordinates: state.coordinates,
-        currentDate: payload.currentDate,
+        date: payload.date,
         imageUri: payload.imageUri,
     });
+}
+
+export function uploadPhoto(state: PhotosState, { payload }: PayloadAction<Photo>) {
+    state.uploadStatus.status = 'in-progress';
+    state.uploadStatus.photo = payload;
+}
+
+export function uploadPhotoSuccessful(state: PhotosState) {
+    state.uploadStatus.status = 'finished';
+}
+
+export function uploadPhotoError(state: PhotosState, { payload }: PayloadAction<string>) {
+    state.uploadStatus.status = 'error';
+    state.uploadStatus.errorMessage = payload;
 }
