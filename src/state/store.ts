@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 
-import { locationSaga } from './location/location.sagas';
-import location from './location/location.slice';
+import { photoSaga } from './photo/photo.sagas';
+import location from './photo/photo.slice';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -13,7 +13,11 @@ export const store = configureStore({
     middleware: [sagaMiddleware],
 });
 
-sagaMiddleware.run(locationSaga);
+sagaMiddleware.run(photoSaga);
+
+store.subscribe(() =>
+    console.log('State after dispatch: ', JSON.stringify(store.getState(), undefined, '  ')),
+);
 
 export type Dispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
